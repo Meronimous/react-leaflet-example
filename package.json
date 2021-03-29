@@ -22,6 +22,7 @@
     "react-dom": "^16.13.1",
     "react-leaflet": "^2.7.0",
     "react-leaflet-control": "^2.1.2",
+    "react-leaflet-google-layer": "^1.1.5",
     "react-leaflet-heatmap-layer": "^2.0.0",
     "react-modal": "^3.12.1",
     "react-router-dom": "^5.2.0",

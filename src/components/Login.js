@@ -1,5 +1,4 @@
-import React,{useState,useEffect} from 'react';
-import { Link } from "react-router-dom";
+import React,{useState} from 'react';
 import '../css/Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Input from '../components/Input/input';
@@ -11,10 +10,6 @@ const cookies = new Cookies();
 
 const  Login=()=> {
 
-   
-    
-      
-
     const [user,setUser]=useState('');
     const [pass,setPass]=useState('');
 
@@ -24,10 +19,6 @@ const  Login=()=> {
         }else if (name=='contrasenia'){
             setPass(value);
         }
-    }
-
-    function match(username,password){        
-        return username===user && password==pass;
     }
 
 
@@ -65,7 +56,6 @@ const  Login=()=> {
     }
 
     return (
-      
         
     <div>
     <div className="sidenav" >
@@ -111,9 +101,6 @@ const  Login=()=> {
         </div>
      </div>  
      </div>
-    
-  
-     
       
     );
   }

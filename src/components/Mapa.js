@@ -1,4 +1,4 @@
-import { faAdjust, faLayerGroup, faMapMarker, faSync } from '@fortawesome/free-solid-svg-icons';
+import { faAdjust, faLayerGroup, faMapMarker, faSync,faSatellite} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,7 +6,7 @@ import "leaflet/dist/leaflet.css";
 import React, { useEffect, useState } from "react";
 import { Map, TileLayer, ZoomControl } from "react-leaflet";
 import Control from 'react-leaflet-control';
-import { Button, Label,Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
+import { Button, Label } from 'reactstrap';
 import Table from '../components/Table/table';
 import '../css/Mapa.css';
 import HeatmapLayer from './HeatmapLayer';
@@ -14,6 +14,9 @@ import ModalNuevaDenuncia from './ModalNuevaDenuncia';
 import VenueMarkers from './VenueMarkers';
 import MenuAppBar from './MenuAppBar';
 import Cookies from 'universal-cookie';
+import ReactLeafletGoogleLayer from 'react-leaflet-google-layer';
+import { Satellite } from '@material-ui/icons';
+
 const cookies = new Cookies();
 
 
@@ -32,7 +35,7 @@ const Mapa = () => {
   const [show, setShow] = useState(false);
   const [visible, setVisible] = useState(true);
   const [heat, setHeat] = useState(false);
-
+  const[gmap,setGmap] = useState(true);
   const [dark, setDark] = useState(false);
   const posicion2 = [-27.4038, -55.8830]
 
@@ -134,6 +137,13 @@ const Mapa = () => {
 
   async function verDark() {
     setDark(!dark);
+    
+
+  }
+
+  async function verGmap() {
+    setGmap(!gmap);
+   
 
   }
 
@@ -184,6 +194,7 @@ const Mapa = () => {
       <div className='mapa'>
 
         <Map center={posicion2} zoom={13} scrollWheelZoom={true}>
+          
 
           {heat ? <HeatmapLayer
             fitBoundsOnLoad
@@ -193,6 +204,7 @@ const Mapa = () => {
             latitudeExtractor={m => m[0]}
             intensityExtractor={m => parseFloat(m[2])} /> : <div></div>}
           {!dark ?
+            !gmap?<ReactLeafletGoogleLayer type={'satellite'} />:
             <TileLayer
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -221,9 +233,15 @@ const Mapa = () => {
                 <FontAwesomeIcon icon={faAdjust} size="3x" />
               </button>
             </div>
+            <div>
+              <button
+                onClick={() => verGmap()} >
+                <FontAwesomeIcon icon={faSatellite} size="3x" />
+              </button>
+            </div>
           </Control>
         </Map>
-      </div>
+      </div>     
     </div>
     </div>
   );

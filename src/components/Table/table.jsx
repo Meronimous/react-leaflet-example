@@ -73,7 +73,7 @@ const Tables = ({tipoDenuncia}) => {
         <>   
                
             {load? <Loading/>:
-            <Table id='tabla_denuncias' responsive>
+            <Table id='tabla_denuncias' responsive striped>
                 <thead>
                     <tr>{renderHeader()}</tr>
                 </thead>

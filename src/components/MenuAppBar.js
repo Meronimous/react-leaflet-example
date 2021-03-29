@@ -46,6 +46,8 @@ export default function MenuAppBar() {
     cookies.set('usuario', "", {path: "/"});
     cookies.set('contrasenia', "", {path: "/"});
     cookies.set("token", "", {path: "/"});
+    cookies.set("apellido", "", {path: "/"});
+    cookies.set("nombre", "", {path: "/"});
     window.location.href="./"
     setAnchorEl(null);
   };
@@ -71,6 +73,7 @@ export default function MenuAppBar() {
                 color="inherit"
               >
                 <AccountCircle />
+                { `${cookies.get("apellido")}, ${cookies.get("nombre")}` }
               </IconButton>
               <Menu
                 id="menu-appbar"

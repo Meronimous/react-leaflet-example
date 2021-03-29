@@ -35,14 +35,16 @@ const  Login=()=> {
         await axios.post(baseUrl, {"username": user,
         "password": pass})
         .then(response=>{  
-            return response.data.token;
+            return response.data;
         })
         .then(response=>{
             console.info(response);
-            if(response.length>0 ){                
+            if(response.token.length>0 ){                
                 cookies.set('usuario', user, {path: "/"});
                 cookies.set('contrasenia', pass, {path: "/"});
-                cookies.set("token", response, {path: "/"});                    
+                cookies.set("token", response.token, {path: "/"});
+                cookies.set("nombre", response.nombre, {path: "/"});
+                cookies.set("apellido", response.apellido, {path: "/"});                    
                 alert(`Bienvenido ${user}`);
                 window.location.href="./mapa";
             }else{

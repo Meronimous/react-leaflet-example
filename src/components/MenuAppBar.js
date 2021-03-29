@@ -13,6 +13,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +43,9 @@ export default function MenuAppBar() {
   };
 
   const handleClose = () => {
+    cookies.set('usuario', "", {path: "/"});
+    cookies.set('contrasenia', "", {path: "/"});
+    cookies.set("token", "", {path: "/"});
     window.location.href="./"
     setAnchorEl(null);
   };

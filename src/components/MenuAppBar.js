@@ -72,8 +72,9 @@ export default function MenuAppBar() {
                 onClick={handleMenu}
                 color="inherit"
               >
+                <h3 className="h3barmenu">{ `${cookies.get("apellido")}, ${cookies.get("nombre")}` }</h3>
+                
                 <AccountCircle />
-                { `${cookies.get("apellido")}, ${cookies.get("nombre")}` }
               </IconButton>
               <Menu
                 id="menu-appbar"

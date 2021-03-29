@@ -26,7 +26,7 @@ const Tables = ({tipoDenuncia}) => {
               'Authorization': cookies.get("token")
             }
             };
-        const response = await axios.get(URL.concat('?size=650'), options)
+        const response = await axios.get(URL.concat('?size=650&sort=id,desc'), options)
         
         setDenuncias(tipoDenuncia=='ELEGIR'?response.data._embedded.denuncias:
                                             tipoDenuncia==' '?

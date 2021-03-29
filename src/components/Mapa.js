@@ -17,7 +17,7 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 
-const baseUrl = "https://denuncias-api-posadas.herokuapp.com/denuncias?size=650";
+const baseUrl = "https://denuncias-api-posadas.herokuapp.com/denuncias?size=650&sort=id,desc";
 
 
 var idPersonas = [];

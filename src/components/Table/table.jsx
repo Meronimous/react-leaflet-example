@@ -5,6 +5,7 @@ import '../../css/Table.css';
 import Loading from './Loading.js'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Cookies from 'universal-cookie';
+import Moment from 'moment';
 const cookies = new Cookies();
 
 
@@ -57,11 +58,12 @@ const Tables = ({tipoDenuncia}) => {
 
     const renderBody = () => {
         return denuncias && denuncias.map(({ id, motivo, fecha, tipoDenuncia }) => {
+            Moment.locale('es');
             return (
                 <tr key={id}>
                     <td>{id}</td>
                     <td>{motivo}</td>
-                    <td>{fecha}</td>    
+                    <td>{ Moment(fecha).format('DD/MM/YYYY') }</td>    
                     <td>{tipoDenuncia}</td>                
                     <td><Button color="danger" onClick={() => removeData(id)}><DeleteForeverIcon/></Button></td>
                 </tr>

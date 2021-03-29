@@ -6,7 +6,7 @@ import Input from '../components/Input/input';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import {Button} from 'reactstrap'
-const baseUrl="https://denuncias-api-posadas.herokuapp.com/personas";
+const baseUrl="https://denuncias-api-posadas.herokuapp.com/login";
 const cookies = new Cookies();
 
 const  Login=()=> {
@@ -32,36 +32,27 @@ const  Login=()=> {
 
 
     async function  iniciarSesion(){
-        await axios.get(baseUrl)
-        .then(response=>{            
-            return response.data._embedded.personae;
+        await axios.post(baseUrl, {"username": user,
+        "password": pass})
+        .then(response=>{  
+            return response.data.token;
         })
         .then(response=>{
-            
+            console.info(response);
             if(response.length>0 ){                
-               let existe = response.some(function (el){               
-                        setUser(el.apellido);
-                        setPass(el.dni)  ;  
-                        console.log(match(el.apellido,el.dni))                
-                        return match(el.apellido,el.dni);
-                } );
-                
-                if (existe){
-                        cookies.set('usuario', user, {path: "/"});
-                        cookies.set('contrasenia', pass, {path: "/"});                    
-                        alert(`Bienvenido ${user}`);
-                        window.location.href="./mapa";
-                }else{
-                    cookies.set('usuario', '', {path: "/"});
+                cookies.set('usuario', user, {path: "/"});
+                cookies.set('contrasenia', pass, {path: "/"});
+                cookies.set("token", response, {path: "/"});                    
+                alert(`Bienvenido ${user}`);
+                window.location.href="./mapa";
+            }else{
+                cookies.set('usuario', '', {path: "/"});
                         cookies.set('contrasenia', '', {path: "/"});
                     alert('El usuario o la contraseña no son correctos');
-                }
-                
-            }else{
-                alert('Error');
             }
         })
         .catch(error=>{
+            alert('El usuario o la contraseña no son correctos');
             console.log(error);
         })
 
@@ -78,7 +69,7 @@ const  Login=()=> {
     <div className="sidenav" >
 
          <div className="login-main-text" >
-                <h2>Centralización de Acontecimientos De Violencia</h2>                
+                <h2>Centralización de Acontecimientos de Violencia</h2>                
          </div>
      </div>
      <div className="main">
@@ -111,7 +102,7 @@ const  Login=()=> {
                            handleChange={handleChange}                    
                        />  
                  </div>
-                 <Button  className="btn btn-info" onClick={handleSubmit}>Login</Button>
+                 <Button  className="btn btn-info" onClick={handleSubmit}>Ingresar</Button>
                  
               </form>
            </div>

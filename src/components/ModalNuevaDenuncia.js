@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React from 'react';
 import { Button, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Tooltip } from 'reactstrap';
-
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 class ModalNuevaDenuncia extends React.Component {
     constructor(props) {
@@ -73,9 +74,10 @@ class ModalNuevaDenuncia extends React.Component {
 
 
         axios
-            .post('http://denuncias-api-posadas.herokuapp.com/denuncias', myObjStr, {
+            .post('https://denuncias-api-posadas.herokuapp.com/denuncias', myObjStr, {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': cookies.get("token")
                 }
             })
             .then(response => {

@@ -4,7 +4,8 @@ import axios from 'axios'
 import '../../css/Table.css';
 import Loading from './Loading.js'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 
 const Tables = ({tipoDenuncia}) => {
@@ -20,7 +21,12 @@ const Tables = ({tipoDenuncia}) => {
 
     const getData = async () => {
         setLoad(true)
-        const response = await axios.get(URL.concat('?size=500'))
+        let options = {
+            headers: {
+              'Authorization': cookies.get("token")
+            }
+            };
+        const response = await axios.get(URL.concat('?size=650'), options)
         
         setDenuncias(tipoDenuncia=='ELEGIR'?response.data._embedded.denuncias:
                                             tipoDenuncia==' '?
@@ -31,8 +37,12 @@ const Tables = ({tipoDenuncia}) => {
     }
 
     const removeData = (id) => {
-       
-        axios.delete(`${URL}/${id}`).then(res => {
+        let options = {
+            headers: {
+              'Authorization': cookies.get("token")
+            }
+            };
+        axios.delete(`${URL}/${id}`, options).then(res => {
             const del = denuncias.filter(denuncia => id !== denuncia.id)
             setDenuncias(del)
         })

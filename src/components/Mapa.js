@@ -13,9 +13,11 @@ import HeatmapLayer from './HeatmapLayer';
 import ModalNuevaDenuncia from './ModalNuevaDenuncia';
 import VenueMarkers from './VenueMarkers';
 import MenuAppBar from './MenuAppBar';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 
-const baseUrl = "https://denuncias-api-posadas.herokuapp.com/denuncias?size=500";
+const baseUrl = "https://denuncias-api-posadas.herokuapp.com/denuncias?size=650";
 
 
 var idPersonas = [];
@@ -67,8 +69,13 @@ const Mapa = () => {
   }
 
 
-  async function cargarUbicaciones() {
-    await axios.get(baseUrl)
+  const cargarUbicaciones = async () => {
+    let options = {
+      headers: {
+        'Authorization': cookies.get("token")
+      }
+      };
+    await axios.get(baseUrl, options)
       .then(response => {
         return response.data._embedded.denuncias;
       })
@@ -158,7 +165,7 @@ const Mapa = () => {
       <div className='tabla'>
         <div> <ModalNuevaDenuncia initialModalState={show} lat={-27.3769} lon={-55.9213} /></div>
         <div className="panelBusqueda">
-          <Label for="tipoDenuncia">Tipo Denuncia</Label>
+          <Label for="tipoDenuncia">Tipo de Denuncia</Label>
           <div>
             <select id="selectlang" className="select" name="tipoDenuncia" onChange={changeHandler} value={busqueda.tipoDenuncia}  >
               <option value="ELEGIR">ELEGIR</option>
